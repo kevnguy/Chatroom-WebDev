@@ -1,0 +1,10 @@
+<div *ngFor="let message of messages">
+    <p>{{message.user}}</p>
+    <p>{{message.message}}</p>
+    <br>
+</div>
+
+<form [formGroup]="chatMessage" (ngSubmit)="onSubmit()">
+    <input type="text" formControlName="message">
+    <button type="submit">Submit</button>
+</form>

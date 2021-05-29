@@ -1,0 +1,8 @@
+<button routerLink="/" type="button" value="/" (click)="linkClicked($event)">Home</button>
+<div *ngFor="let chatroom of chatrooms">
+  <button *ngIf="isHome" routerLink="{{chatroom._id}}" (click)="linkClicked($event)" value="{{chatroom._id}}" type="button">{{chatroom.name}}</button>
+</div>
+<br>
+<button *ngIf="isHome" type="button" (click)="createRoom()">Create Room</button>
+
+<router-outlet></router-outlet>
