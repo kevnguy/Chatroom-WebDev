@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder} from '@angular/forms';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {LoginService} from '../helpers/login.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-sign-up',
@@ -15,7 +17,9 @@ export class SignUpComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private http: HttpClient
+    private http: HttpClient,
+    private loginService: LoginService,
+    private router: Router,
   ) { }
 
   async onSubmit()
@@ -29,6 +33,15 @@ export class SignUpComponent implements OnInit {
       let check = await this.http.post<boolean>('http://localhost:8080/sign-up', JSON.stringify(this.newUser.value), {
         headers: headers
       }).toPromise();
+
+      if(check){
+        this.loginService.sendToServer(this.newUser.value).subscribe({
+          next: () => {
+            this.router.navigate(['/room-list']);
+            window.location.reload();
+          }
+        });
+      }
     }
 
     else
