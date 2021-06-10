@@ -51,12 +51,16 @@ app.post("/create", (req, res) =>
 
 app.post("/insert", (req, res) =>
 {
-    db.messages.insert({
-        user: req.body.user,
-        message: req.body.message,
-        room_id: req.body.roomId,
-        created_at: req.body.created_at,
-    });
+    console.log("app.post: /insert");
+    const publicKey = fs.readFileSync("./public.key", "utf8");
+    const token = req.headers.authorization;
+    console.log(token);
+    // db.messages.insert({
+    //     //user: req.body.user,
+    //     message: req.body.message,
+    //     room_id: req.body.roomId,
+    //     created_at: req.body.created_at,
+    // });
 
     res.send(true);
 });
@@ -107,14 +111,14 @@ app.get("/:username", (req, res) =>
 app.post("/login", (req, res) =>
 {
     const privateKey = fs.readFileSync("./private.key", "utf8");
-    console.log("here");
+    //console.log("here");
     db.users.find({username: req.body.username, password: req.body.password}, (error, data) =>
     {
         if(error)
             res.send(error);
         else
         {
-            console.log(data);
+            //console.log(data);
             if(data.length > 0)
             {
                 let jwtBearerToken = jwt.sign({}, privateKey, {
