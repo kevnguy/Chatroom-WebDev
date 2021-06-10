@@ -12,30 +12,32 @@ export class AppComponent {
   chatrooms: any;
   isHome!: boolean;
   isLoggedIn = false;
-  profileVar: any;
-  profileID: any;
+  profiles: any;
 
   constructor(
     private http: HttpClient,
     private loginService: LoginService
   ) {}
 
-  async ngOnInit()
+  ngOnInit()
   {
     let user = this.loginService.currentUser;
 
     if(user)
     {
       this.isLoggedIn = true;
-      this.profileVar = await this.http.get<any>('http://localhost:8080/user').toPromise();
-      this.profileID = this.profileVar._id;
-      console.log(this.profileVar);
+      this.retrieveUser();
     }
 
     else
     {
       this.isLoggedIn = false;
     }
+  }
+
+  async retrieveUser()
+  {
+    this.profiles = await this.http.get<any>('http://localhost:8080/user').toPromise();
   }
 
   linkClicked(event: any)

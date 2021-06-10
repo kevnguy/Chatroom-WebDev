@@ -4,7 +4,9 @@
 </div>
 
 <div *ngIf="isLoggedIn">
-  <button type="button" routerLink="user/{{this.profileID}}">Rooms</button>
+  <div *ngFor="let profile of profiles">
+    <button type="button" routerLink="user/{{profile._id}}">Profile</button>
+  </div>  
   <button type="button" routerLink="room-list">Rooms</button>
   <button type="button" routerLink="login" (click)="logout()">Log Out</button>
 </div>

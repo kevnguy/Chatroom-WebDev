@@ -28,7 +28,7 @@ export class SignUpComponent implements OnInit {
   {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
 
-    let userCheck = await this.http.get<boolean>('http://localhost:8080/' + this.newUser.value.username).toPromise();
+    let userCheck = await this.http.get<boolean>('http://localhost:8080/api/' + this.newUser.value.username).toPromise();
 
     if(!userCheck)
     {

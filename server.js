@@ -114,7 +114,7 @@ app.post("/sign-up", (req, res) =>
     res.send(true);
 });
 
-app.get("/:username", (req, res) =>
+app.get("/api/:username", (req, res) =>
 {
     db.users.find({username: req.params.username}, (error, data) =>
     {
