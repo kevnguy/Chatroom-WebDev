@@ -87,10 +87,12 @@ app.get("/messages/:id", (req, res) =>
 app.post("/sign-up", (req, res) =>
 {
     db.users.insert({
+        name : req.body.name,
+        email: req.body.email,
         username: req.body.username,
         password: req.body.password
     });
-
+    console.log(req.body);
     res.send(true);
 });
 
