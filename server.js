@@ -95,7 +95,7 @@ app.get("/user", (req, res) =>
                 res.send(error) ;
             } else {
                 res.send(data);    
-                console.log(data);
+                //console.log(data);
             }
         })
     }
@@ -110,7 +110,7 @@ app.post("/sign-up", (req, res) =>
         username: req.body.username,
         password: req.body.password
     });
-    console.log(req.body);
+    //console.log(req.body);
     res.send(true);
 });
 
@@ -167,6 +167,41 @@ app.post("/login", (req, res) =>
             }
         }
     });
+});
+
+
+app.post("/user-description", (req, res) =>
+{
+    const publicKey = fs.readFileSync("./public.key", "utf8");
+    let token = req.headers.authorization;
+    let verified = jwt.verify(token, publicKey);
+    //console.log(verified);
+    if(verified){
+        db.userDescriptions.insert({
+            userID : req.body.userID,
+            description: req.body.description,
+        })
+        res.send(true);
+    }
+});
+
+app.get("/user-description/:id", (req, res) =>
+{
+    const publicKey = fs.readFileSync("./public.key", "utf8");
+    let token = req.headers.authorization;
+    let verified = jwt.verify(token, publicKey);
+
+    //console.log(req.params.id);
+    if(verified){
+        db.userDescriptions.find({userID: req.params.id}, (error, data) => {
+            if(error) {
+                res.send(error) ;
+            } else {
+                res.send(data);    
+                //console.log(data);
+            }
+        });
+    }
 });
 
 // NOTE: This is the sample server.js code we provided, feel free to change the structures

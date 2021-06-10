@@ -2,5 +2,12 @@
     <p>Name: {{userProfile.name}}</p>
     <p>Username: {{userProfile.username}}</p>
     <p>email: {{userProfile.email}}</p>
-    <br>
 </div>
+
+<div *ngFor="let userDescription of _description">
+    <p>Description: {{userDescription.description}}</p>
+</div>
+<form [formGroup]="userDesc" (ngSubmit)="onSubmit()">
+    <textarea type="text" rows="4" cols="50" formControlName="description"> </textarea>
+    <button type="submit">Submit</button>
+</form>
