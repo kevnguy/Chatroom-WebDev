@@ -1,1 +1,6 @@
-<p>profile works!</p>
+<div *ngFor="let userProfile of userProfiles">
+    <p>Name: {{userProfile.name}}</p>
+    <p>Username: {{userProfile.username}}</p>
+    <p>email: {{userProfile.email}}</p>
+    <br>
+</div>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 @Component({
   selector: 'app-profile',
@@ -7,9 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor() { }
+  userProfiles:any;
+
+  constructor(
+    private http: HttpClient
+
+  ) { }
 
   ngOnInit(): void {
+    this.retrieveUserInfo();
   }
 
+  async retrieveUserInfo()
+  {
+    this.userProfiles = await this.http.get<any>('http://localhost:8080/user').toPromise();
+
+    console.log(this.userProfiles);
+  }
 }
