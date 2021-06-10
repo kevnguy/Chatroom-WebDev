@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import {FormBuilder} from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-room',
@@ -26,6 +27,7 @@ export class RoomComponent implements OnInit {
     this.user = window.prompt("Enter username");
     this.roomId = this.route.snapshot.paramMap.get('_id');
     this.retrieveMessages();
+    let interval = setInterval(this.retrieveMessages.bind(this), 1000);
   }
 
   async retrieveMessages()
@@ -38,8 +40,10 @@ export class RoomComponent implements OnInit {
     let messageDetails = {
       user: this.user,
       message: this.chatMessage.value.message,
-      roomId: this.roomId
+      roomId: this.roomId,
+      created_at: moment().format(),
     }
+    //console.log(messageDetails.created_at);
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
     let check = await this.http.post<boolean>('http://localhost:8080/insert', JSON.stringify(messageDetails),
     {

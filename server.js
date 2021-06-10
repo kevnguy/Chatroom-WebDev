@@ -54,7 +54,8 @@ app.post("/insert", (req, res) =>
     db.messages.insert({
         user: req.body.user,
         message: req.body.message,
-        room_id: req.body.roomId
+        room_id: req.body.roomId,
+        created_at: req.body.created_at,
     });
 
     res.send(true);
