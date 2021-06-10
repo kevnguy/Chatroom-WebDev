@@ -6,12 +6,15 @@ import {LoginComponent} from './login/login.component';
 import {AuthGuard} from './helpers/auth.guard';
 import {LoginGuard} from './helpers/login.guard';
 import {RoomListComponent} from './room-list/room-list.component';
+import {ProfileComponent} from './profile/profile.component';
+
 
 const routes: Routes = [
   {path: 'room/:_id', component: RoomComponent, canActivate: [AuthGuard]},
   {path: 'sign-up', component: SignUpComponent, canActivate: [LoginGuard]},
   {path: 'login', component: LoginComponent, canActivate: [LoginGuard]},
-  {path: 'room-list', component: RoomListComponent, canActivate: [AuthGuard]}
+  {path: 'room-list', component: RoomListComponent, canActivate: [AuthGuard]},
+  {path: 'user/:_id', component: ProfileComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({

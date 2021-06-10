@@ -4,6 +4,7 @@
 </div>
 
 <div *ngIf="isLoggedIn">
+  <button type="button" routerLink="user/{{this.profileID}}">Rooms</button>
   <button type="button" routerLink="room-list">Rooms</button>
   <button type="button" routerLink="login" (click)="logout()">Log Out</button>
 </div>

@@ -84,13 +84,33 @@ app.get("/messages/:id", (req, res) =>
     });
 });
 
+app.get("/user", (req, res) =>
+{
+    const publicKey = fs.readFileSync("./public.key", "utf8");
+    let token = req.headers.authorization;
+    let verified = jwt.verify(token, publicKey);
+    if(verified) {
+        db.users.find({username: verified.sub}, (error, data) => {
+            if(error) {
+                res.send(error) ;
+            } else {
+                res.send(data);    
+                console.log(data);
+            }
+        })
+    }
+
+});
+
 app.post("/sign-up", (req, res) =>
 {
     db.users.insert({
+        name : req.body.name,
+        email: req.body.email,
         username: req.body.username,
         password: req.body.password
     });
-
+    console.log(req.body);
     res.send(true);
 });
 

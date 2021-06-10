@@ -11,6 +11,8 @@ import {Router} from '@angular/router';
 })
 export class SignUpComponent implements OnInit {
   newUser = this.formBuilder.group({
+    name: '',
+    email: '',
     username: '',
     password: ''
   });

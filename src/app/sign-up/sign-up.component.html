@@ -1,4 +1,12 @@
 <form [formGroup]="newUser" (ngSubmit)="onSubmit()">
+    <label for="name">name</label>
+    <br>
+    <input id="name" type="text" formControlName="name" required>
+    <br>
+    <label for="email">email</label>
+    <br>    
+    <input id="email" type="text" formControlName="email" required>
+    <br>
     <label for="username">Username</label>
     <br>
     <input id="username" type="text" formControlName="username" required>
