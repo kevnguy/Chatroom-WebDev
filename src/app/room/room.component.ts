@@ -24,7 +24,7 @@ export class RoomComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.user = window.prompt("Enter username");
+    //this.user = window.prompt("Enter username");
     this.roomId = this.route.snapshot.paramMap.get('_id');
     this.retrieveMessages();
     let interval = setInterval(this.retrieveMessages.bind(this), 1000);
@@ -38,12 +38,12 @@ export class RoomComponent implements OnInit {
   async onSubmit()
   {
     let messageDetails = {
-      user: this.user,
+      //user: this.user,
       message: this.chatMessage.value.message,
       roomId: this.roomId,
       created_at: moment().format(),
     }
-    //console.log(messageDetails.created_at);
+    //console.log(messageDetails);
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
     let check = await this.http.post<boolean>('http://localhost:8080/insert', JSON.stringify(messageDetails),
     {
