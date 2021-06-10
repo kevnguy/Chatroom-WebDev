@@ -10,6 +10,7 @@ import { LoginComponent } from './login/login.component';
 import { RoomListComponent } from './room-list/room-list.component';
 import {ApiInterceptor} from './helpers/api.interceptor';
 import {ErrorInterceptor} from './helpers/error.interceptor';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import {ErrorInterceptor} from './helpers/error.interceptor';
     RoomComponent,
     SignUpComponent,
     LoginComponent,
-    RoomListComponent
+    RoomListComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
