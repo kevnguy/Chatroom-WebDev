@@ -17,8 +17,15 @@ app.use(express.urlencoded({extended: true}));
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
+    res.header('Access-Control-Expose-Headers', 'Authorization');
     next();
   });
+
+  
 
 // set up stylesheets route
 
@@ -51,17 +58,18 @@ app.post("/create", (req, res) =>
 
 app.post("/insert", (req, res) =>
 {
-    console.log("app.post: /insert");
     const publicKey = fs.readFileSync("./public.key", "utf8");
-    const token = req.headers.authorization;
-    console.log(token);
-    // db.messages.insert({
-    //     //user: req.body.user,
-    //     message: req.body.message,
-    //     room_id: req.body.roomId,
-    //     created_at: req.body.created_at,
-    // });
-
+    let token = req.headers.authorization;
+    let verified = jwt.verify(token, publicKey);
+    //console.log(verified.sub);
+    if(verified){
+        db.messages.insert({
+            user: verified.sub,
+            message: req.body.message,
+            room_id: req.body.roomId,
+            created_at: req.body.created_at,
+        });
+    }
     res.send(true);
 });
 
