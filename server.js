@@ -61,7 +61,6 @@ app.post("/insert", (req, res) =>
     const publicKey = fs.readFileSync("./public.key", "utf8");
     let token = req.headers.authorization;
     let verified = jwt.verify(token, publicKey);
-    //console.log(verified.sub);
     if(verified){
         db.messages.insert({
             user: verified.sub,
