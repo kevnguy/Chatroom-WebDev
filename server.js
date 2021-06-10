@@ -4,6 +4,8 @@ const express = require('express');
 const path = require('path');
 const mongojs = require('mongojs');
 const db = mongojs('lab4');
+var jwt = require("jsonwebtoken");
+const fs = require("fs");
 
 const app = express();
 const port = 8080;
@@ -67,6 +69,71 @@ app.get("/messages/:id", (req, res) =>
             res.send(error);
         else
             res.send(data);
+    });
+});
+
+app.post("/sign-up", (req, res) =>
+{
+    db.users.insert({
+        username: req.body.username,
+        password: req.body.password
+    });
+
+    res.send(true);
+});
+
+app.get("/:username", (req, res) =>
+{
+    db.users.find({username: req.params.username}, (error, data) =>
+    {
+        if(error)
+            res.send(error);
+        else
+        {
+            if(data.length > 0)
+            {
+                res.send(true);
+            }
+
+            else
+            {
+                res.send(false);
+            }
+        }
+    });
+});
+
+app.post("/login", (req, res) =>
+{
+    const privateKey = fs.readFileSync("./private.key", "utf8");
+    console.log("here");
+    db.users.find({username: req.body.username, password: req.body.password}, (error, data) =>
+    {
+        if(error)
+            res.send(error);
+        else
+        {
+            console.log(data);
+            if(data.length > 0)
+            {
+                let jwtBearerToken = jwt.sign({}, privateKey, {
+                    algorithm: "RS256",
+                    expiresIn: '1hr',
+                    subject: req.body.username
+                });
+
+                let token = {
+                    idToken: jwtBearerToken
+                }
+
+                res.json(token);
+            }
+
+            else
+            {
+                res.json(false);
+            }
+        }
     });
 });
 

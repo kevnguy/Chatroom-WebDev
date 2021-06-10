@@ -1,8 +1,11 @@
-<button routerLink="/" type="button" value="/" (click)="linkClicked($event)">Home</button>
-<div *ngFor="let chatroom of chatrooms">
-  <button *ngIf="isHome" routerLink="{{chatroom._id}}" (click)="linkClicked($event)" value="{{chatroom._id}}" type="button">{{chatroom.name}}</button>
+<div *ngIf="!isLoggedIn">
+  <button type="button" routerLink="sign-up">Sign Up</button>
+  <button type="button" routerLink="login">Login</button>
 </div>
-<br>
-<button *ngIf="isHome" type="button" (click)="createRoom()">Create Room</button>
+
+<div *ngIf="isLoggedIn">
+  <button type="button" routerLink="room-list">Rooms</button>
+  <button type="button" routerLink="login" (click)="logout()">Log Out</button>
+</div>
 
 <router-outlet></router-outlet>

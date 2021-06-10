@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {LoginService} from './helpers/login.service';
 
 @Component({
   selector: 'app-root',
@@ -10,19 +11,26 @@ export class AppComponent {
   title = 'chatroom';
   chatrooms: any;
   isHome!: boolean;
+  isLoggedIn = false;
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private loginService: LoginService
   ) {}
 
   ngOnInit()
   {
-    this.retrieveRooms();
-  }
+    let user = this.loginService.currentUser;
 
-  async retrieveRooms()
-  {
-    this.chatrooms = await this.http.get<any>('http://localhost:8080/').toPromise();
+    if(user)
+    {
+      this.isLoggedIn = true;
+    }
+
+    else
+    {
+      this.isLoggedIn = false;
+    }
   }
 
   linkClicked(event: any)
@@ -38,22 +46,10 @@ export class AppComponent {
     }
   }
 
-  async createRoom()
+  
+
+  logout()
   {
-    let roomName = window.prompt("Enter room name.");
-    let room = {
-      roomName: roomName
-    }
-
-    const headers = new HttpHeaders().set('Content-Type', 'application/json');
-    let success = await this.http.post<boolean>('http://localhost:8080/create', JSON.stringify(room),
-    {
-      headers: headers
-    }).toPromise();
-
-    if(success)
-    {
-      this.retrieveRooms();
-    }
+    this.loginService.logout();
   }
 }
