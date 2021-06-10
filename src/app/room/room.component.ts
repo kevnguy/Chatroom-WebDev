@@ -27,6 +27,7 @@ export class RoomComponent implements OnInit {
     this.user = window.prompt("Enter username");
     this.roomId = this.route.snapshot.paramMap.get('_id');
     this.retrieveMessages();
+    let interval = setInterval(this.retrieveMessages.bind(this), 1000);
   }
 
   async retrieveMessages()
