@@ -45,7 +45,7 @@ export class RoomComponent implements OnInit {
       //user: this.user,
       message: this.chatMessage.value.message,
       roomId: this.roomId,
-      created_at: moment().format(),
+      created_at:  moment().format('MMM D h:mm a'),
     }
     //console.log(messageDetails);
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
