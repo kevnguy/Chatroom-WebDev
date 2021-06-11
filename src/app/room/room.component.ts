@@ -17,6 +17,10 @@ export class RoomComponent implements OnInit {
   user!: string | null;
   messages: any;
 
+  searchValue = this.formBuilder.group({
+    search: ''
+  });
+
   constructor(
     private formBuilder: FormBuilder,
     private http: HttpClient,
@@ -27,7 +31,7 @@ export class RoomComponent implements OnInit {
     //this.user = window.prompt("Enter username");
     this.roomId = this.route.snapshot.paramMap.get('_id');
     this.retrieveMessages();
-    let interval = setInterval(this.retrieveMessages.bind(this), 1000);
+    //let interval = setInterval(this.retrieveMessages.bind(this), 1000);
   }
 
   async retrieveMessages()
@@ -53,6 +57,24 @@ export class RoomComponent implements OnInit {
     if(check)
     {
       this.retrieveMessages(); 
+    }
+  }
+
+  filterMessages()
+  {
+    if(this.searchValue.value.search)
+    {
+      let valueToSearch = this.searchValue.value.search;
+      let sortedMessages = this.messages.filter((entry: any) =>
+        entry.message.toLowerCase().includes(valueToSearch)
+      );
+
+      this.messages = sortedMessages;
+    }
+
+    else
+    {
+      this.retrieveMessages();
     }
   }
 

@@ -1,9 +1,15 @@
-<div id="container">
+<form [formGroup]="searchValue" (keyup)="filterMessages()">
+    <label for="search">Search</label>
+    <br>
+    <input type="text" formControlName="search">
+</form>
+
+<div>
     <div id="left--container">
       <!-- // left container -->
     </div>
   
-    <div id="main--container">
+    <div>
       <div id="message--container">
         <div id="message--box" *ngFor="let message of messages">
             <div id="message--info">
