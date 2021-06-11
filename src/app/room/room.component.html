@@ -24,7 +24,7 @@
       </div>
   
       <div id="text--container">
-        <form id="form--control" [formGroup]="chatMessage" (ngSubmit)="onSubmit()">
+        <form id="form--control" [formGroup]="chatMessage" (ngSubmit)="onSubmit(); this.chatMessage.reset()">
               <input type="text" formControlName="message" />
               <button type="submit">Submit</button>
         </form>
@@ -32,6 +32,5 @@
     </div>
     <div id="right--container">
       <!-- right side container -->
-      
     </div>
 </div>

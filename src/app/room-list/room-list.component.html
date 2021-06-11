@@ -1,5 +1,9 @@
-<div *ngFor="let chatroom of chatrooms">
-    <button routerLink="/room/{{chatroom._id}}" value="{{chatroom._id}}" type="button">{{chatroom.name}}</button>
+<h1 style="text-align: center;">Pick room to enter or create a new room</h1>
+<div id="roomWrap">
+    <button class="navBtn" *ngFor="let chatroom of chatrooms" routerLink="/room/{{chatroom._id}}" 
+        value="{{chatroom._id}}" type="button">{{chatroom.name}}</button>
 </div>
-<br>
-<button type="button" (click)="createRoom()">Create Room</button>
+
+<div id="center">
+    <button class="createRoom" type="button" (click)="createRoom()">Create Room</button>
+</div>

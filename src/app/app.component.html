@@ -1,15 +1,19 @@
 <div *ngIf="!isLoggedIn">
-  <button type="button" routerLink="sign-up">Sign Up</button>
-  <button type="button" routerLink="login">Login</button>
+  <div id="navBar">
+    <button class="navBtn" type="button" routerLink="sign-up">Sign Up</button>
+    <button class="navBtn" type="button" routerLink="login">Login</button>
+  </div>
 </div>
 
 <div *ngIf="isLoggedIn">
-  <div class="profile--logout" *ngFor="let profile of profiles">
-    <button class="profile--button" type="button" routerLink="user/{{profile._id}}">Profile</button>
-  </div>  
-  <button type="button" routerLink="room-list">Rooms</button>
-  <div class="profile--logout">
-      <button class="logout--button" type="button" routerLink="login" (click)="logout()">Log Out</button>
+  <div id="navBar">
+    <div>
+      <button class="navBtn" type="button" routerLink="room-list">Rooms</button>
+    </div>
+    <div>
+      <button *ngFor="let profile of profiles" class="navBtn" type="button" routerLink="user/{{profile._id}}">Profile</button>
+      <button class="navBtn" style="margin-left: 15px;" type="button" routerLink="login" (click)="logout()">Log Out</button>
+    </div>
   </div>
 </div>
 
