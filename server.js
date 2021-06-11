@@ -6,6 +6,7 @@ const mongojs = require('mongojs');
 const db = mongojs('lab4');
 var jwt = require("jsonwebtoken");
 const fs = require("fs");
+var ObjectId = require("mongojs").ObjectId;
 
 const app = express();
 const port = 8080;
@@ -216,8 +217,31 @@ app.put("/user-description", (req, res) =>
             }
         });
 
-        res.send(true);
+        res.send(true); 
     }
+})
+
+app.delete("/delete", (req, res) =>
+{
+    const publicKey = fs.readFileSync("./public.key", "utf8");
+    let token = req.headers.authorization;
+    let verified = jwt.verify(token, publicKey);
+    let query = {_id: ObjectId(req.body.id), user: verified.sub};
+    if(verified)
+    {
+        let check = db.messages.remove(
+            query,
+            {
+                justOne: true
+            }
+        );
+        if(check)
+            res.send(true);
+        else
+            res.send(false);
+    }
+    else
+        res.send(false);
 })
 
 // NOTE: This is the sample server.js code we provided, feel free to change the structures

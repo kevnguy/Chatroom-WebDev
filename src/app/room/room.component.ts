@@ -78,4 +78,32 @@ export class RoomComponent implements OnInit {
     }
   }
 
+  async delete(event: any){
+    let messageID = {
+      body:{
+        id: event.target.value
+      }
+    }
+
+    let check = await this.http.request<boolean>('delete', 'http://localhost:8080/delete', messageID).toPromise();
+
+    if(check)
+    {
+      this.retrieveMessages();
+    }
+    else {
+      alert("You can't delete the messages of others!");
+    }
+  }
+
+  async edit(event: any){
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+
+    let messageID = {
+      id: event.target.value
+    }
+    console.log(messageID);
+
+    
+  }
 }
