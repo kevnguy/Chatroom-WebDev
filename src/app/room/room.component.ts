@@ -64,7 +64,7 @@ export class RoomComponent implements OnInit {
   {
     if(this.searchValue.value.search)
     {
-      let valueToSearch = this.searchValue.value.search;
+      let valueToSearch = this.searchValue.value.search.toLowerCase();
       let sortedMessages = this.messages.filter((entry: any) =>
         entry.message.toLowerCase().includes(valueToSearch)
       );
