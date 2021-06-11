@@ -46,12 +46,26 @@ export class ProfileComponent implements OnInit {
       description: this.userDesc.value.description
     }
     //console.log(userDescription);
-    let check = await this.http.post<boolean>('http://localhost:8080/user-description', JSON.stringify(userDescription),
-      {headers: headers}).toPromise();
-    console.log(check);
+    if(this._description.length > 0)
+    {
+      let check = await this.http.put<boolean>('http://localhost:8080/user-description', JSON.stringify(userDescription), {
+        headers: headers
+      }).toPromise();
 
-    if(check){
-      this.retrieveDescription(); 
+      if(check)
+      {
+        this.retrieveDescription();
+      }
+    }
+
+    else
+    {
+      let check = await this.http.post<boolean>('http://localhost:8080/user-description', JSON.stringify(userDescription),
+      {headers: headers}).toPromise();
+
+      if(check){
+        this.retrieveDescription(); 
+      }
     }
   }
 }

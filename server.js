@@ -201,6 +201,25 @@ app.get("/user-description/:id", (req, res) =>
     }
 });
 
+app.put("/user-description", (req, res) =>
+{
+    const publicKey = fs.readFileSync("./public.key", "utf8");
+    let token = req.headers.authorization;
+    let verified = jwt.verify(token, publicKey);
+
+    if(verified)
+    {
+        db.userDescriptions.updateOne({userID: req.body.userID},
+        {
+            $set: {
+                description: req.body.description
+            }
+        });
+
+        res.send(true);
+    }
+})
+
 // NOTE: This is the sample server.js code we provided, feel free to change the structures
 
 app.listen(port, () => console.log(`Server listening on http://localhost:${port}`));
