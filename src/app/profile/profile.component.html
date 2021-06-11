@@ -1,13 +1,15 @@
-<div *ngFor="let userProfile of userProfiles">
+<div style="text-align: center" *ngFor="let userProfile of userProfiles">
     <p>Name: {{userProfile.name}}</p>
     <p>Username: {{userProfile.username}}</p>
     <p>email: {{userProfile.email}}</p>
 </div>
 
-<div *ngFor="let userDescription of _description">
+<div style="text-align: center" *ngFor="let userDescription of _description">
     <p>Description: {{userDescription.description}}</p>
 </div>
-<form [formGroup]="userDesc" (ngSubmit)="onSubmit()">
-    <textarea type="text" rows="4" cols="50" formControlName="description"> </textarea>
-    <button type="submit">Submit</button>
-</form>
+<div>
+    <form id="descForm" [formGroup]="userDesc" (ngSubmit)="onSubmit(); this.userDesc.reset()">
+        <textarea type="text" rows="3" cols="50" formControlName="description" placeholder="Change your description!"> </textarea>
+        <button type="submit">Submit</button>
+    </form>
+</div>

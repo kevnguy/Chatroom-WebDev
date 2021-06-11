@@ -1,0 +1,16 @@
+
+  #navBar{
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    padding: 0px;
+  }
+
+  .navBtn{
+    border-radius: 5px;
+    cursor: pointer;
+    background: rgb(56, 57, 67);
+    color: #fff;
+    height: auto;
+    width: 100px;
+  }

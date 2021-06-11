@@ -1,15 +1,12 @@
-<form [formGroup]="searchValue" (keyup)="filterMessages()">
-    <label for="search">Search</label>
-    <br>
-    <input type="text" formControlName="search">
-</form>
 
-<div>
+<form style="text-align: center;" [formGroup]="searchValue" (keyup)="filterMessages()">
+  <input type="text" formControlName="search" placeholder="Search chat">
+</form>
+<div id="container">
     <div id="left--container">
       <!-- // left container -->
     </div>
-  
-    <div>
+    <div id="main--container">
       <div id="message--container">
         <div id="message--box" *ngFor="let message of messages">
             <div id="message--info">
@@ -24,7 +21,7 @@
       </div>
   
       <div id="text--container">
-        <form id="form--control" [formGroup]="chatMessage" (ngSubmit)="onSubmit()">
+        <form id="form--control" [formGroup]="chatMessage" (ngSubmit)="onSubmit(); this.chatMessage.reset()">
               <input type="text" formControlName="message" />
               <button type="submit">Submit</button>
         </form>
@@ -32,6 +29,5 @@
     </div>
     <div id="right--container">
       <!-- right side container -->
-      
     </div>
 </div>
