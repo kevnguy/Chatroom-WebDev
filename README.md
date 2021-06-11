@@ -19,6 +19,7 @@ final_project-photosharing created by GitHub Classroom
 > go to the directory for this project, run `npm install`.
 >
 > > once installation for dependencies ends, start mongo instance with `mongod`.
+> 
 > > then run `nodemon server.js` and `ng serve --open` parallel terminal.
 
 ## Usage
