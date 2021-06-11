@@ -3,6 +3,7 @@ import {FormBuilder} from '@angular/forms';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {LoginService} from '../helpers/login.service';
 import {Router} from '@angular/router';
+import { FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-sign-up',
@@ -12,7 +13,7 @@ import {Router} from '@angular/router';
 export class SignUpComponent implements OnInit {
   newUser = this.formBuilder.group({
     name: '',
-    email: '',
+    email: ['', [Validators.required, Validators.email,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
     username: '',
     password: ''
   });
