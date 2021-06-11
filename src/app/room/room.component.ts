@@ -95,15 +95,4 @@ export class RoomComponent implements OnInit {
       alert("You can't delete the messages of others!");
     }
   }
-
-  async edit(event: any){
-    const headers = new HttpHeaders().set('Content-Type', 'application/json');
-
-    let messageID = {
-      id: event.target.value
-    }
-    console.log(messageID);
-
-    
-  }
 }
