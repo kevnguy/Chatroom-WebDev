@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {FormBuilder} from '@angular/forms';
-import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 
 @Component({
   selector: 'app-profile',
@@ -24,20 +23,18 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.retrieveUserInfo();
-    this.retrieveDescription(); 
+    //this.retrieveDescription(); 
   }
 
   async retrieveUserInfo()
   {
     this.userProfiles = await this.http.get<any>('http://localhost:8080/user').toPromise();
-
-    console.log(this.userProfiles);
+    this.retrieveDescription();
   }
 
   async retrieveDescription()
   {
     this._description = await this.http.get<any>('http://localhost:8080/user-description/' + this.userProfiles[0]._id).toPromise();
-    console.log(this._description);
   }
 
   async onSubmit()
@@ -46,7 +43,7 @@ export class ProfileComponent implements OnInit {
 
     let userDescription = {
       userID: this.userProfiles[0]._id,
-      description: this.userDesc.value.description,
+      description: this.userDesc.value.description
     }
     //console.log(userDescription);
     let check = await this.http.post<boolean>('http://localhost:8080/user-description', JSON.stringify(userDescription),
