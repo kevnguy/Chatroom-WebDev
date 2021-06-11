@@ -84,9 +84,8 @@ export class RoomComponent implements OnInit {
         id: event.target.value
       }
     }
-
+    
     let check = await this.http.request<boolean>('delete', 'http://localhost:8080/delete', messageID).toPromise();
-
     if(check)
     {
       this.retrieveMessages();

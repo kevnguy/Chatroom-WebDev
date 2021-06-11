@@ -222,7 +222,7 @@ app.put("/user-description", (req, res) =>
     }
 })
 
- app.delete("/delete", (req, res) =>
+app.delete("/delete", (req, res) =>
 {
     const publicKey = fs.readFileSync("./public.key", "utf8");
     let token = req.headers.authorization;
@@ -230,16 +230,15 @@ app.put("/user-description", (req, res) =>
     let query = {_id: ObjectId(req.body.id), user: verified.sub};
     if(verified)
     {
-        let check = db.messages.remove(
-            query,
+        db.messages.remove(
+            query, (err, data) => {
+                if(data.deletedCount == 1) res.send(true)
+                else res.send(false)
+            },
             {
                 justOne: true
             }
         );
-        if(check)
-            res.send(true);
-        else
-            res.send(false);
     }
     else
         res.send(false);

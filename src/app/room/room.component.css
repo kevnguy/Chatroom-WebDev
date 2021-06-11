@@ -181,5 +181,16 @@
     border-bottom: 2px solid #3d90c4;
   }
   
-  
+  .msgBtn{
+    border-radius: 5px;
+    cursor: pointer;
+    background: WhiteSmoke;
+    color: black;
+    display: none;
+    font-size: x-small;
+  }
+
+  #message--box:hover .msgBtn{
+    display: inline-block;
+  }
   
