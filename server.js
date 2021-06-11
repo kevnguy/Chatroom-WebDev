@@ -5,9 +5,9 @@ const path = require('path');
 const mongojs = require('mongojs');
 const db = mongojs('lab4');
 var jwt = require("jsonwebtoken");
-var ObjectId = require("mongojs").ObjectId;
 const fs = require("fs");
 var ObjectId = require("mongojs").ObjectId;
+const bcrypt = require("bcrypt");
 
 const app = express();
 const port = 8080;
@@ -103,14 +103,30 @@ app.get("/user", (req, res) =>
 
 app.post("/sign-up", (req, res) =>
 {
-    db.users.insert({
-        name : req.body.name,
-        email: req.body.email,
-        username: req.body.username,
-        password: req.body.password
+    const saltRounds = 10;
+    bcrypt.genSalt(saltRounds, (err, salt) =>
+    {
+        if(err) throw err;
+
+        else
+        {
+            bcrypt.hash(req.body.password, salt, (err, hash) => {
+                if(err) throw err;
+
+                else
+                {
+                    db.users.insert({
+                        name : req.body.name,
+                        email: req.body.email,
+                        username: req.body.username,
+                        password: hash
+                    });
+
+                    res.send(true);
+                }
+            });
+        }
     });
-    //console.log(req.body);
-    res.send(true);
 });
 
 app.get("/api/:username", (req, res) =>
@@ -137,33 +153,43 @@ app.get("/api/:username", (req, res) =>
 app.post("/login", (req, res) =>
 {
     const privateKey = fs.readFileSync("./private.key", "utf8");
-    //console.log("here");
-    db.users.find({username: req.body.username, password: req.body.password}, (error, data) =>
+
+    db.users.find({username: req.body.username}, (error, data) =>
     {
         if(error)
             res.send(error);
         else
         {
-            //console.log(data);
-            if(data.length > 0)
-            {
-                let jwtBearerToken = jwt.sign({}, privateKey, {
-                    algorithm: "RS256",
-                    expiresIn: '1hr',
-                    subject: req.body.username
-                });
+            let hash = data[0].password;
 
-                let token = {
-                    idToken: jwtBearerToken
+            bcrypt.compare(req.body.password, hash, (err, result) =>
+            {
+                if(err)
+                    res.send(err);
+                else
+                {
+                    console.log(result);
+                    if(result)
+                    {
+                        let jwtBearerToken = jwt.sign({}, privateKey, {
+                            algorithm: "RS256",
+                            expiresIn: '1hr',
+                            subject: req.body.username
+                        });
+        
+                        let token = {
+                            idToken: jwtBearerToken
+                        }
+        
+                        res.json(token);
+                    }
+
+                    else
+                    {
+                        res.json(false);
+                    }
                 }
-
-                res.json(token);
-            }
-
-            else
-            {
-                res.json(false);
-            }
+            });
         }
     });
 });
@@ -222,7 +248,7 @@ app.put("/user-description", (req, res) =>
     }
 })
 
-app.delete("/delete", (req, res) =>
+ app.delete("/delete", (req, res) =>
 {
     const publicKey = fs.readFileSync("./public.key", "utf8");
     let token = req.headers.authorization;
@@ -230,15 +256,17 @@ app.delete("/delete", (req, res) =>
     let query = {_id: ObjectId(req.body.id), user: verified.sub};
     if(verified)
     {
-        db.messages.remove(
-            query, (err, data) => {
-                if(data.deletedCount == 1) res.send(true)
-                else res.send(false)
-            },
+        let check = db.messages.remove(
+            query,
             {
                 justOne: true
             }
         );
+        console.log(check)
+        if(check)
+            res.send(true);
+        else
+            res.send(false);
     }
     else
         res.send(false);
