@@ -5,6 +5,7 @@ const path = require('path');
 const mongojs = require('mongojs');
 const db = mongojs('lab4');
 var jwt = require("jsonwebtoken");
+var ObjectId = require("mongojs").ObjectId;
 const fs = require("fs");
 var ObjectId = require("mongojs").ObjectId;
 
@@ -221,7 +222,7 @@ app.put("/user-description", (req, res) =>
     }
 })
 
-app.delete("/delete", (req, res) =>
+ app.delete("/delete", (req, res) =>
 {
     const publicKey = fs.readFileSync("./public.key", "utf8");
     let token = req.headers.authorization;
@@ -243,6 +244,42 @@ app.delete("/delete", (req, res) =>
     else
         res.send(false);
 })
+
+app.put("/messages", (req, res) =>
+{
+    const publicKey = fs.readFileSync("./public.key", "utf8");
+    let token = req.headers.authorization;
+    let verified = jwt.verify(token, publicKey);
+    console.log(verified.sub);
+
+    if(verified)
+    {
+        db.messages.find({_id: ObjectId(req.body.id), user: verified.sub}, (error, data) =>
+        {
+            if(error)
+                res.send(error);
+            else
+            {
+                if(data.length > 0)
+                {
+                    db.messages.updateOne({_id: ObjectId(req.body.id)},
+                    {
+                        $set: {
+                            message: req.body.message
+                        }
+                    });
+
+                    res.send(true);
+                }
+
+                else
+                {
+                    res.send(false);
+                }
+            }
+        });
+    }
+});
 
 // NOTE: This is the sample server.js code we provided, feel free to change the structures
 

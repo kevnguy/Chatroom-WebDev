@@ -78,7 +78,7 @@ export class RoomComponent implements OnInit {
     }
   }
 
-  async delete(event: any){
+ async delete(event: any){
     let messageID = {
       body:{
         id: event.target.value
@@ -93,6 +93,32 @@ export class RoomComponent implements OnInit {
     }
     else {
       alert("You can't delete the messages of others!");
+    }
+  }
+}
+
+  async edit(event: any)
+  {
+    let newMessage = window.prompt("Edit your message");
+    let message = {
+      message: newMessage,
+      id: event.target.value
+    }
+
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+
+    let check = await this.http.put<boolean>('http://localhost:8080/messages', JSON.stringify(message), {
+      headers: headers
+    }).toPromise();
+
+    if(check)
+    {
+      this.retrieveMessages();
+    }
+
+    else
+    {
+      window.alert("Cannot edit this message");
     }
   }
 }
