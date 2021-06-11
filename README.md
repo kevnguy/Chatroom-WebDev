@@ -12,16 +12,16 @@ final_project-photosharing created by GitHub Classroom
 > - Why is it important or interesting to you?
 >   - It is important that people are able to communicate their thought thru the use of social media platforms and this app relies on similar methods.
 > - languages/tools/technologies used?
->   - `css`, `html`, `Angular`, `node.js`, `Express.js`.
+>   - `css`, `html`, `Angular`, `node.js`, `Express.js`, `mongodb`.
 
 ## Installation
 
 > go to the directory for this project, run `npm install`.
 >
-> > once installation for dependencies ends run `nodemon server.js` and `ng serve --open` parallel terminal.
+> > once installation for dependencies ends, start mongo instance with `mongod`.
+> > then run `nodemon server.js` and `ng serve --open` parallel terminal.
 
 ## Usage
 
-> on a web browser run `localhost:4200`.
 > on the sign up page, enter your name, email, username, password and click submit
 > you are now in the home page. you can create a room and enjoy messaging your friends.
