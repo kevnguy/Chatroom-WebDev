@@ -95,7 +95,7 @@ export class RoomComponent implements OnInit {
       alert("You can't delete the messages of others!");
     }
   }
-}
+
 
   async edit(event: any)
   {
