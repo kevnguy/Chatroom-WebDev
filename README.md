@@ -24,4 +24,5 @@ final_project-photosharing created by GitHub Classroom
 ## Usage
 
 > on the sign up page, enter your name, email, username, password and click submit
+> 
 > you are now in the home page. you can create a room and enjoy messaging your friends.
