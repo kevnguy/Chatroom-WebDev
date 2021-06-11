@@ -18,7 +18,9 @@
                 <button type="button" value="{{message._id}}" (click)="edit($event)">Edit</button>
                 <button type="button" value="{{message._id}}" (click)="delete($event)">Delete</button>
             </div>
-          <br />
+            <button class="btn" type="button" (click)= edit($event) value="{{message._id}}">Edit</button>
+            <button class="btn" type="button" (click)= delete($event) value="{{message._id}}">Delete</button>
+          <br/>
         </div>
       </div>
   

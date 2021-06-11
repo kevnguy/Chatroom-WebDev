@@ -78,6 +78,25 @@ export class RoomComponent implements OnInit {
     }
   }
 
+ async delete(event: any){
+    let messageID = {
+      body:{
+        id: event.target.value
+      }
+    }
+
+    let check = await this.http.request<boolean>('delete', 'http://localhost:8080/delete', messageID).toPromise();
+
+    if(check)
+    {
+      this.retrieveMessages();
+    }
+    else {
+      alert("You can't delete the messages of others!");
+    }
+  }
+}
+
   async edit(event: any)
   {
     let newMessage = window.prompt("Edit your message");
@@ -101,10 +120,5 @@ export class RoomComponent implements OnInit {
     {
       window.alert("Cannot edit this message");
     }
-  }
-
-  delete(event: any)
-  {
-    let messageId = event.target.value;
   }
 }
