@@ -1,11 +1,31 @@
-<div *ngFor="let message of messages">
-    <p>{{message.user}}</p>
-    <p>{{message.message}}</p>
-    <p>{{message.created_at}}</p>
-    <br>
+<div id="container">
+    <div id="left--container">
+      <!-- // left container -->
+    </div>
+  
+    <div id="main--container">
+      <div id="message--container">
+        <div id="message--box" *ngFor="let message of messages">
+            <div id="message--info">
+                <p> <b>{{message.user}}</b>  {{message.created_at}}</p>
+                <!-- <p>{{message.created_at}}</p> -->
+            </div>
+            <div id="message--text">
+                <p>{{message.message}}</p>
+            </div>
+          <br />
+        </div>
+      </div>
+  
+      <div id="text--container">
+        <form id="form--control" [formGroup]="chatMessage" (ngSubmit)="onSubmit()">
+              <input type="text" formControlName="message" />
+              <button type="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+    <div id="right--container">
+      <!-- right side container -->
+      
+    </div>
 </div>
-
-<form [formGroup]="chatMessage" (ngSubmit)="onSubmit()">
-    <input type="text" formControlName="message">
-    <button type="submit">Submit</button>
-</form>

@@ -4,11 +4,13 @@
 </div>
 
 <div *ngIf="isLoggedIn">
-  <div *ngFor="let profile of profiles">
-    <button type="button" routerLink="user/{{profile._id}}">Profile</button>
+  <div class="profile--logout" *ngFor="let profile of profiles">
+    <button class="profile--button" type="button" routerLink="user/{{profile._id}}">Profile</button>
   </div>  
   <button type="button" routerLink="room-list">Rooms</button>
-  <button type="button" routerLink="login" (click)="logout()">Log Out</button>
+  <div class="profile--logout">
+      <button class="logout--button" type="button" routerLink="login" (click)="logout()">Log Out</button>
+  </div>
 </div>
 
 <router-outlet></router-outlet>
