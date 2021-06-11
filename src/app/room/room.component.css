@@ -30,8 +30,8 @@
 #right--container {
   width: 20%;
   /* display: flex; */
-  margin-right: 15px;
   padding: 0px;
+  margin-right: 15px;
   /* border: 1px solid steelblue;
   border-radius: 5px; */
   background-color:rgb(53, 53, 53);
@@ -57,7 +57,7 @@
 ======================================================= */
 #message--container {
   width: auto;
-  height: 90%;
+  height: 86%;
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
