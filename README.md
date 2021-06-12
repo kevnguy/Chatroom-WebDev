@@ -34,7 +34,7 @@ On the sign up page, enter your name, email, username, password and click submit
 ![Login](/images/Login.png)
 
 ### Room list page
-![Rooms page](/images/Roomlist.png)
+![Rooms page](/images/roomlist.png)
 
 ### Chatroom
 ![chatroom](/images/chatroom.png)
