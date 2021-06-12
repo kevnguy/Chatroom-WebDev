@@ -24,7 +24,6 @@ app.use(function(req, res, next) {
     next();
   });
 
-  
 
 // set up stylesheets route
 
@@ -168,7 +167,6 @@ app.post("/login", (req, res) =>
                     res.send(err);
                 else
                 {
-                    console.log(result);
                     if(result)
                     {
                         let jwtBearerToken = jwt.sign({}, privateKey, {
@@ -248,7 +246,7 @@ app.put("/user-description", (req, res) =>
     }
 })
 
- app.delete("/delete", (req, res) =>
+app.delete("/delete", (req, res) =>
 {
     const publicKey = fs.readFileSync("./public.key", "utf8");
     let token = req.headers.authorization;
@@ -256,28 +254,25 @@ app.put("/user-description", (req, res) =>
     let query = {_id: ObjectId(req.body.id), user: verified.sub};
     if(verified)
     {
-        let check = db.messages.remove(
-            query,
+        db.messages.remove(
+            query, (err, data) => {
+                if(data.deletedCount == 1) res.send(true)
+                else res.send(false)
+            },
             {
                 justOne: true
             }
         );
-        console.log(check)
-        if(check)
-            res.send(true);
-        else
-            res.send(false);
     }
     else
         res.send(false);
-})
+});
 
 app.put("/messages", (req, res) =>
 {
     const publicKey = fs.readFileSync("./public.key", "utf8");
     let token = req.headers.authorization;
     let verified = jwt.verify(token, publicKey);
-    console.log(verified.sub);
 
     if(verified)
     {
