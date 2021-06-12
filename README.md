@@ -1,7 +1,7 @@
 # final_project-chatroom
-  ##### Group Members
- [Kevin Nguyen](https://github.com/kevnguy) 
-[Michelle Park](https://github.com/tomatomodest) 
+##### Group Members
+[Kevin Nguyen](https://github.com/kevnguy)\
+[Michelle Park](https://github.com/tomatomodest)\
 [Yonas Adamu](https://github.com/Yonas-A)
  
 ## Project Description
@@ -17,9 +17,9 @@ It is important that people are able to communicate their thoughts through the u
  - `bcrypt` for salting and hashing passwords
 
   
-## Installation
+## Installation/Setup
 - Go to the directory for this project and run `npm install`.
-- Current configuration for database is local. This requires the installation of mongoDB server an creation of a new database. Afterwards, start the mongo instance with `mongod`
+- Current configuration for database is local. This requires the installation of mongoDB server and creation of a new database. Afterwards, start the mongo instance with `mongod`
 - then run `nodemon server.js` and `ng serve --open` in parallel terminal.
 
 ## Usage/Screenshots
