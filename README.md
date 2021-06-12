@@ -28,7 +28,7 @@ On the sign up page, enter your name, email, username, password and click submit
 - You are now able to see the list of current chatrooms. You can create a room and enjoy messaging your friends.
 ---
 ### Sign up page
-![Signup](/images/Signup.png)
+![Signup](/images/signup.png)
 
 ### Login page
 ![Login](/images/Login.png)
@@ -40,4 +40,4 @@ On the sign up page, enter your name, email, username, password and click submit
 ![chatroom](/images/chatroom.png)
 
 ### Profile
-![profile](/images/profile.png)
+![profile](/images/Profile.png)
